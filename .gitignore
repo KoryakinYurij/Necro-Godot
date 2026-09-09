@@ -18,3 +18,7 @@ recordings/
 .scratch/
 .freebuff/
 .mcp.json
+
+# Windows export playtest machine state
+tools/windows-export-playtest/config.local.json
+tools/windows-export-playtest/last-run.json

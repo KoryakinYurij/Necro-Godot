@@ -1,0 +1,11 @@
+{
+  "wcu_python": "C:\\Users\\Fixed\\Tools\\windows-computer-use-mcp\\.venv\\Scripts\\python.exe",
+  "game_exe": "D:\\Code AI\\Games\\Necro-Godot\\builds\\Necro-Godot-G1.exe",
+  "window_title": "Necro Godot Trial",
+  "game_process_name": "Necro-Godot-G1.exe",
+  "capture_target": "monitor:1",
+  "output_root": "C:\\Users\\Fixed\\Videos\\Necro-Export-Playtest",
+  "window_ready_timeout_seconds": 8,
+  "focus_poll_seconds": 0.2,
+  "scenario": "g1-lifecycle"
+}

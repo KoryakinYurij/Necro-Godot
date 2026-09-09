@@ -1,0 +1,30 @@
+{
+  "g1-lifecycle": {
+    "deadline_seconds": 20,
+    "fps": 10,
+    "montage_frames": 8,
+    "script": [
+      "down right",
+      "wait 0.35",
+      "up right",
+      "shot",
+      "wait 5.5",
+      "shot",
+      "tap game_r",
+      "wait 0.7",
+      "down left",
+      "wait 1.0",
+      "up left",
+      "shot"
+    ]
+  },
+  "focus-loss-self-test": {
+    "deadline_seconds": 10,
+    "focus_loss_after_seconds": 1.0,
+    "script": ["down right", "wait 60", "up right"]
+  },
+  "deadline-self-test": {
+    "deadline_seconds": 2,
+    "script": ["down right", "wait 60", "up right"]
+  }
+}
