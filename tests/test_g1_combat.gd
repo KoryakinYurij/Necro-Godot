@@ -18,14 +18,7 @@ func _press_restart() -> void:
 	released.pressed = false
 	Input.parse_input_event(released)
 
-func test_enemy_deals_damage_through_running_combat_loop() -> void:
-	var expedition: Expedition = _spawn_expedition()
-	await wait_physics_frames(50)
-	var snapshot := expedition.combat_snapshot()
-	assert_lt(int(snapshot[&"hero_health"]), int(snapshot[&"hero_max_health"]))
-
-func test_autonomous_minion_acquires_and_defeats_live_enemy() -> void:
-	var expedition: Expedition = _spawn_expedition()
+func _move_away_until_enemy_is_defeated(expedition: Expedition) -> void:
 	Input.action_press(&"move_left")
 	await wait_physics_frames(180)
 	Input.action_release(&"move_left")
@@ -36,6 +29,16 @@ func test_autonomous_minion_acquires_and_defeats_live_enemy() -> void:
 	assert_false(bool(snapshot[&"dead"]))
 	assert_false(bool(snapshot[&"enemy_alive"]))
 	assert_false(bool(snapshot[&"minion_has_target"]))
+
+func test_enemy_deals_damage_through_running_combat_loop() -> void:
+	var expedition: Expedition = _spawn_expedition()
+	await wait_physics_frames(50)
+	var snapshot := expedition.combat_snapshot()
+	assert_lt(int(snapshot[&"hero_health"]), int(snapshot[&"hero_max_health"]))
+
+func test_autonomous_minion_acquires_and_defeats_live_enemy() -> void:
+	var expedition: Expedition = _spawn_expedition()
+	await _move_away_until_enemy_is_defeated(expedition)
 
 func test_idle_combat_can_kill_player_through_running_gameplay() -> void:
 	var expedition: Expedition = _spawn_expedition()
@@ -58,3 +61,15 @@ func test_repeated_death_restart_cycles_create_fresh_expeditions() -> void:
 		assert_false(bool(restarted[&"dead"]))
 		assert_eq(int(restarted[&"hero_health"]), int(restarted[&"hero_max_health"]))
 		assert_true(bool(restarted[&"enemy_alive"]))
+		var active_camera: Camera2D = expedition.get_viewport().get_camera_2d()
+		assert_same(active_camera, expedition.hero.follow_camera)
+		assert_lt(active_camera.get_screen_center_position().distance_to(expedition.hero.global_position), 1.0)
+
+func test_new_minion_can_win_after_death_and_restart() -> void:
+	var expedition: Expedition = _spawn_expedition()
+	await wait_physics_frames(300)
+	assert_true(bool(expedition.combat_snapshot()[&"dead"]))
+	_press_restart()
+	await wait_physics_frames(3)
+	assert_eq(int(expedition.combat_snapshot()[&"generation"]), 2)
+	await _move_away_until_enemy_is_defeated(expedition)
