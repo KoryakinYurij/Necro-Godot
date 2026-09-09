@@ -22,3 +22,7 @@ recordings/
 # Windows export playtest machine state
 tools/windows-export-playtest/config.local.json
 tools/windows-export-playtest/last-run.json
+
+# Python tooling cache
+__pycache__/
+*.pyc
