@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://expedition/expedition.gd" id="1_exp"]
+
+[node name="Expedition" type="Node2D"]
+script = ExtResource("1_exp")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="StatusLabel" type="Label" parent="HUD"]
+unique_name_in_owner = true
+offset_left = 24.0
+offset_top = 20.0
+offset_right = 640.0
+offset_bottom = 52.0
+theme_override_colors/font_color = Color(0.92, 0.89, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "Expedition"
+
+[node name="HelpLabel" type="Label" parent="HUD"]
+unique_name_in_owner = true
+offset_left = 24.0
+offset_top = 674.0
+offset_right = 900.0
+offset_bottom = 706.0
+theme_override_colors/font_color = Color(0.72, 0.68, 0.82, 1)
+theme_override_font_sizes/font_size = 16
+text = "WASD / arrows move"
+
+[node name="DeathLabel" type="Label" parent="HUD"]
+unique_name_in_owner = true
+visible = false
+offset_left = 360.0
+offset_top = 285.0
+offset_right = 920.0
+offset_bottom = 435.0
+theme_override_colors/font_color = Color(1, 0.72, 0.78, 1)
+theme_override_font_sizes/font_size = 32
+text = "YOU DIED"
+horizontal_alignment = 1
+vertical_alignment = 1
