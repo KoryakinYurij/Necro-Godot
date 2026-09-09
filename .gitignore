@@ -1,0 +1,19 @@
+# Godot generated state
+.godot/
+.import/
+
+# Local/editor files
+.vscode/
+.idea/
+*.tmp
+*.log
+Thumbs.db
+.DS_Store
+
+# Exported builds and recordings
+builds/
+recordings/
+
+# Local agent scratch
+.scratch/
+.freebuff/
