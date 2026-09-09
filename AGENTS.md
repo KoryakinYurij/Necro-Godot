@@ -18,9 +18,11 @@ Current GitHub issues define executable scope. Historical JS tickets and reviews
 
 Godot implementation, real gameplay runs, exports, and performance evidence must run on the Windows machine. The canonical working path is `D:\Code AI\Games\Necro-Godot`.
 
-The verified trial engine is Godot `4.7.1.stable.official.a13da4feb` with typed GDScript. A different engine version requires an explicit project decision before implementation continues.
+The verified trial engine is Godot `4.7.2.stable.official.ed1daf0bf` with typed GDScript. A different engine version requires an explicit project decision before implementation continues.
 
 The VPS may be used for documentation, GitHub coordination, review, or lightweight repository inspection. VPS results are not evidence for Godot runtime performance.
+
+For Godot-specific skills, tests, MCP, pinned versions, and authority rules, read `docs/agents/godot-toolchain.md` before touching Godot project/tooling files.
 
 ## Matt engineering skills
 
