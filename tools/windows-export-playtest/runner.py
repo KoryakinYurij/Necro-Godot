@@ -17,7 +17,9 @@ def load_json(path: Path):
 
 
 def write_json(path: Path, data):
-    path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    temp = path.with_suffix(path.suffix + ".tmp")
+    temp.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    os.replace(temp, path)
 
 
 def append_log(path: Path, event: str, **data):

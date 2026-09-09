@@ -59,7 +59,10 @@ def wait_for_armed(state_file, runner, timeout):
         if runner.poll() is not None:
             return False
         if state_file.exists():
-            state = load_json(state_file)
+            try:
+                state = load_json(state_file)
+            except (OSError, json.JSONDecodeError):
+                state = {}
             if state.get("phase") == "armed":
                 return True
         time.sleep(0.1)
