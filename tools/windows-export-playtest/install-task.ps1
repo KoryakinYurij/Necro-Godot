@@ -17,14 +17,16 @@ if (-not (Test-Path $launcher)) {
 }
 
 $identity = [System.Security.Principal.WindowsIdentity]::GetCurrent()
-$escape = [System.Security.SecurityElement]::Escape
+function Escape-Xml([string]$Value) {
+    return [System.Security.SecurityElement]::Escape($Value)
+}
 $xml = Get-Content -Raw $templatePath
-$xml = $xml.Replace("__AUTHOR__", $escape.Invoke($identity.Name))
-$xml = $xml.Replace("__USER_SID__", $escape.Invoke($identity.User.Value))
-$xml = $xml.Replace("__WCU_PYTHON__", $escape.Invoke([string]$configData.wcu_python))
-$xml = $xml.Replace("__LAUNCHER__", $escape.Invoke($launcher))
-$xml = $xml.Replace("__CONFIG__", $escape.Invoke($configPath))
-$xml = $xml.Replace("__TOOL_DIR__", $escape.Invoke($toolDir))
+$xml = $xml.Replace("__AUTHOR__", (Escape-Xml $identity.Name))
+$xml = $xml.Replace("__USER_SID__", (Escape-Xml $identity.User.Value))
+$xml = $xml.Replace("__WCU_PYTHON__", (Escape-Xml ([string]$configData.wcu_python)))
+$xml = $xml.Replace("__LAUNCHER__", (Escape-Xml $launcher))
+$xml = $xml.Replace("__CONFIG__", (Escape-Xml $configPath))
+$xml = $xml.Replace("__TOOL_DIR__", (Escape-Xml $toolDir))
 
 $tempXml = Join-Path $env:TEMP "Necro-Export-Playtest.xml"
 [System.IO.File]::WriteAllText(
