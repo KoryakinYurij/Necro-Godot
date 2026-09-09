@@ -1,11 +1,11 @@
 extends CharacterBody2D
 class_name AutonomousMinion
 
-@export var move_speed: float = 165.0
+@export var move_speed: float = 230.0
 @export var follow_distance: float = 54.0
-@export var attack_range: float = 46.0
+@export var attack_range: float = 85.0
 @export var attack_damage: int = 10
-@export var attack_cooldown: float = 0.35
+@export var attack_cooldown: float = 0.30
 @export var reacquire_interval: float = 0.15
 
 var owner_hero: Hero = null

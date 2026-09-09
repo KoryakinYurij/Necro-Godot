@@ -18,22 +18,15 @@ var enemy: Enemy = null
 var _run_root: Node2D = null
 var _generation: int = 0
 var _player_dead: bool = false
-var _evidence_demo: bool = false
-var _demo_elapsed: float = 0.0
-var _demo_killed_player: bool = false
-var _demo_restarted: bool = false
 
 
 func _ready() -> void:
-	_evidence_demo = OS.get_cmdline_user_args().has("--evidence-demo")
 	_build_run()
 	queue_redraw()
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	_update_hud()
-	if _evidence_demo:
-		_drive_evidence_demo(delta)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -42,13 +35,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func restart_expedition() -> void:
-	_release_demo_input()
 	_build_run()
-
-
-func apply_hero_damage(amount: int) -> void:
-	if is_instance_valid(hero):
-		hero.receive_damage(amount)
 
 
 func combat_snapshot() -> Dictionary[StringName, Variant]:
@@ -106,45 +93,6 @@ func _update_hud() -> void:
 	death_label.visible = _player_dead
 	death_label.text = "YOU DIED\nPress R to begin a clean Expedition"
 	help_label.text = "WASD / arrows move   •   Minion fights autonomously   •   R restarts after death"
-
-
-func _drive_evidence_demo(delta: float) -> void:
-	_demo_elapsed += delta
-	if _demo_elapsed < 1.25:
-		Input.action_press(&"move_right")
-	else:
-		Input.action_release(&"move_right")
-	if _demo_elapsed >= 2.8 and not _demo_killed_player:
-		_demo_killed_player = true
-		apply_hero_damage(999)
-	if _demo_elapsed >= 3.6 and not _demo_restarted:
-		_demo_restarted = true
-		_emit_restart_input()
-	if _demo_elapsed >= 4.0 and _demo_elapsed < 5.2:
-		Input.action_press(&"move_up")
-	else:
-		Input.action_release(&"move_up")
-	if _demo_elapsed >= 6.0:
-		_release_demo_input()
-		get_tree().quit()
-
-
-func _emit_restart_input() -> void:
-	var pressed := InputEventAction.new()
-	pressed.action = &"restart"
-	pressed.pressed = true
-	Input.parse_input_event(pressed)
-	var released := InputEventAction.new()
-	released.action = &"restart"
-	released.pressed = false
-	Input.parse_input_event(released)
-
-
-func _release_demo_input() -> void:
-	Input.action_release(&"move_left")
-	Input.action_release(&"move_right")
-	Input.action_release(&"move_up")
-	Input.action_release(&"move_down")
 
 
 func _draw() -> void:

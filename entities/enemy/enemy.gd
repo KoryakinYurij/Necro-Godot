@@ -5,9 +5,9 @@ signal health_changed(current: int, maximum: int)
 signal died(enemy: Enemy)
 
 @export var move_speed: float = 95.0
-@export var attack_damage: int = 8
-@export var attack_range: float = 42.0
-@export var attack_cooldown: float = 0.85
+@export var attack_damage: int = 18
+@export var attack_range: float = 38.0
+@export var attack_cooldown: float = 0.55
 
 @onready var health: HealthComponent = %Health
 

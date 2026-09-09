@@ -2,47 +2,59 @@ extends GutTest
 
 const EXPEDITION_SCENE: PackedScene = preload("res://expedition/expedition.tscn")
 
-
 func _spawn_expedition() -> Expedition:
 	var expedition: Expedition = EXPEDITION_SCENE.instantiate() as Expedition
 	assert_not_null(expedition)
 	add_child_autofree(expedition)
 	return expedition
 
+func _press_restart() -> void:
+	var pressed := InputEventAction.new()
+	pressed.action = &"restart"
+	pressed.pressed = true
+	Input.parse_input_event(pressed)
+	var released := InputEventAction.new()
+	released.action = &"restart"
+	released.pressed = false
+	Input.parse_input_event(released)
 
 func test_enemy_deals_damage_through_running_combat_loop() -> void:
 	var expedition: Expedition = _spawn_expedition()
 	await wait_physics_frames(50)
-	var snapshot: Dictionary[StringName, Variant] = expedition.combat_snapshot()
+	var snapshot := expedition.combat_snapshot()
 	assert_lt(int(snapshot[&"hero_health"]), int(snapshot[&"hero_max_health"]))
-
 
 func test_autonomous_minion_acquires_and_defeats_live_enemy() -> void:
 	var expedition: Expedition = _spawn_expedition()
-	await wait_physics_frames(110)
-	var snapshot: Dictionary[StringName, Variant] = expedition.combat_snapshot()
+	Input.action_press(&"move_left")
+	await wait_physics_frames(180)
+	Input.action_release(&"move_left")
+	Input.action_press(&"move_up")
+	await wait_physics_frames(180)
+	Input.action_release(&"move_up")
+	var snapshot := expedition.combat_snapshot()
+	assert_false(bool(snapshot[&"dead"]))
 	assert_false(bool(snapshot[&"enemy_alive"]))
 	assert_false(bool(snapshot[&"minion_has_target"]))
 
-
-func test_lethal_damage_then_restart_creates_fresh_combat_state() -> void:
+func test_idle_combat_can_kill_player_through_running_gameplay() -> void:
 	var expedition: Expedition = _spawn_expedition()
-	await wait_physics_frames(2)
-	var before: Dictionary[StringName, Variant] = expedition.combat_snapshot()
-	expedition.apply_hero_damage(999)
-	await wait_physics_frames(1)
-	var dead_state: Dictionary[StringName, Variant] = expedition.combat_snapshot()
-	assert_true(bool(dead_state[&"dead"]))
-	assert_eq(int(dead_state[&"hero_health"]), 0)
+	await wait_physics_frames(300)
+	var snapshot := expedition.combat_snapshot()
+	assert_true(bool(snapshot[&"dead"]))
+	assert_eq(int(snapshot[&"hero_health"]), 0)
 
-	var restart_event := InputEventAction.new()
-	restart_event.action = &"restart"
-	restart_event.pressed = true
-	Input.parse_input_event(restart_event)
-	await wait_physics_frames(2)
-	var restarted: Dictionary[StringName, Variant] = expedition.combat_snapshot()
-	assert_eq(int(restarted[&"generation"]), int(before[&"generation"]) + 1)
-	assert_false(bool(restarted[&"dead"]))
-	assert_eq(int(restarted[&"hero_health"]), int(restarted[&"hero_max_health"]))
-	assert_true(bool(restarted[&"enemy_alive"]))
-	assert_eq(int(restarted[&"enemy_health"]), int(restarted[&"enemy_max_health"]))
+func test_repeated_death_restart_cycles_create_fresh_expeditions() -> void:
+	var expedition: Expedition = _spawn_expedition()
+	for expected_generation: int in range(1, 4):
+		await wait_physics_frames(300)
+		var dead_state := expedition.combat_snapshot()
+		assert_true(bool(dead_state[&"dead"]), "generation %d should die through combat" % expected_generation)
+		assert_eq(int(dead_state[&"generation"]), expected_generation)
+		_press_restart()
+		await wait_physics_frames(3)
+		var restarted := expedition.combat_snapshot()
+		assert_eq(int(restarted[&"generation"]), expected_generation + 1)
+		assert_false(bool(restarted[&"dead"]))
+		assert_eq(int(restarted[&"hero_health"]), int(restarted[&"hero_max_health"]))
+		assert_true(bool(restarted[&"enemy_alive"]))
