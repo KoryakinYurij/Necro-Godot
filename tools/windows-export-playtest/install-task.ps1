@@ -28,6 +28,7 @@ $xml = $xml.Replace("__LAUNCHER__", (Escape-Xml $launcher))
 $xml = $xml.Replace("__CONFIG__", (Escape-Xml $configPath))
 $xml = $xml.Replace("__TOOL_DIR__", (Escape-Xml $toolDir))
 
+$xml = $xml.Replace('encoding="UTF-8"', 'encoding="UTF-16"')
 $tempXml = Join-Path $env:TEMP "Necro-Export-Playtest.xml"
 [System.IO.File]::WriteAllText(
     $tempXml,
