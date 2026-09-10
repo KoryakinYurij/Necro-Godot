@@ -73,3 +73,8 @@ Use the canonical Matt triage labels mapped one-to-one in GitHub. See `docs/agen
 ### Domain docs
 
 This repository uses a single domain context with root `CONTEXT.md` and accepted decisions under `docs/adr/`. See `docs/agents/domain.md`.
+## Gameplay QA autonomy
+
+Routine gameplay implementation and verification are agent-owned. Use GUT for deterministic/state regressions and Godot AI for live gameplay interaction, UI/state observation, screenshots, and current-run errors. Do not ask the owner for incremental button/input checks; accumulate small verified changes and hand off a coherent playable milestone.
+
+Windows export automation is optional evidence, not a reason to delay gameplay. Use the existing runner only when it works as-is and a black-box check is useful. If a Godot AI input path fails, diagnose that path narrowly; do not expand or replace Windows tooling without a concrete game-verification need. For G2, the owner's final manual `.exe` playthrough is sufficient for exported-build feel/input acceptance; label anything the agent could not independently verify.
