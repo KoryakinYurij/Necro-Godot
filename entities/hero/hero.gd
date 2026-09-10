@@ -66,3 +66,12 @@ func _draw() -> void:
 	draw_circle(Vector2.ZERO, 18.0, body_color)
 	draw_circle(Vector2(0.0, -5.0), 9.0, Color("d8ccff"))
 	draw_line(Vector2(-14.0, 16.0), Vector2(14.0, 16.0), Color("2b203f"), 4.0)
+
+
+func increase_max_health(amount: int) -> void:
+	health.increase_max_health(amount, amount)
+
+
+func add_move_speed(amount: float) -> void:
+	if amount > 0.0:
+		move_speed += amount

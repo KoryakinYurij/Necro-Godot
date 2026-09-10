@@ -10,18 +10,39 @@ script = ExtResource("1_exp")
 [node name="StatusLabel" type="Label" parent="HUD"]
 unique_name_in_owner = true
 offset_left = 24.0
-offset_top = 20.0
-offset_right = 640.0
-offset_bottom = 52.0
+offset_top = 18.0
+offset_right = 720.0
+offset_bottom = 50.0
 theme_override_colors/font_color = Color(0.92, 0.89, 1, 1)
 theme_override_font_sizes/font_size = 20
 text = "Expedition"
+
+[node name="ObjectiveLabel" type="Label" parent="HUD"]
+unique_name_in_owner = true
+offset_left = 24.0
+offset_top = 52.0
+offset_right = 860.0
+offset_bottom = 82.0
+theme_override_colors/font_color = Color(0.85, 0.75, 0.47, 1)
+theme_override_font_sizes/font_size = 17
+text = "Explore freely"
+
+[node name="RewardEffectLabel" type="Label" parent="HUD"]
+unique_name_in_owner = true
+offset_left = 820.0
+offset_top = 20.0
+offset_right = 1250.0
+offset_bottom = 52.0
+theme_override_colors/font_color = Color(0.57, 0.92, 0.79, 1)
+theme_override_font_sizes/font_size = 16
+text = "Blessing: No blessing yet"
+horizontal_alignment = 2
 
 [node name="HelpLabel" type="Label" parent="HUD"]
 unique_name_in_owner = true
 offset_left = 24.0
 offset_top = 674.0
-offset_right = 900.0
+offset_right = 1230.0
 offset_bottom = 706.0
 theme_override_colors/font_color = Color(0.72, 0.68, 0.82, 1)
 theme_override_font_sizes/font_size = 16
@@ -39,3 +60,64 @@ theme_override_font_sizes/font_size = 32
 text = "YOU DIED"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="RewardUI" type="CanvasLayer" parent="."]
+process_mode = 3
+layer = 20
+
+[node name="RewardOverlay" type="Control" parent="RewardUI"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Backdrop" type="ColorRect" parent="RewardUI/RewardOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.035, 0.025, 0.07, 0.88)
+mouse_filter = 0
+
+[node name="Panel" type="Panel" parent="RewardUI/RewardOverlay"]
+layout_mode = 0
+offset_left = 330.0
+offset_top = 185.0
+offset_right = 950.0
+offset_bottom = 535.0
+
+[node name="RewardTitleLabel" type="Label" parent="RewardUI/RewardOverlay/Panel"]
+unique_name_in_owner = true
+offset_left = 32.0
+offset_top = 28.0
+offset_right = 588.0
+offset_bottom = 100.0
+theme_override_colors/font_color = Color(0.92, 0.86, 1, 1)
+theme_override_font_sizes/font_size = 27
+text = "RUINS CLEARED\nChoose one Expedition blessing"
+horizontal_alignment = 1
+
+[node name="VigorButton" type="Button" parent="RewardUI/RewardOverlay/Panel"]
+unique_name_in_owner = true
+offset_left = 54.0
+offset_top = 135.0
+offset_right = 566.0
+offset_bottom = 210.0
+theme_override_font_sizes/font_size = 20
+text = "BONE WARD   +30 max HP • heal 30"
+
+[node name="HasteButton" type="Button" parent="RewardUI/RewardOverlay/Panel"]
+unique_name_in_owner = true
+offset_left = 54.0
+offset_top = 230.0
+offset_right = 566.0
+offset_bottom = 305.0
+theme_override_font_sizes/font_size = 20
+text = "GRAVE HASTE   +55 movement speed"
