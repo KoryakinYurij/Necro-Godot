@@ -12,3 +12,4 @@ When a skill requires a human decision:
 6. Preserve HITL ownership when the active Matt skill requires it; better decision support does not transfer the decision to the agent.
 
 For reversible implementation details inside an approved ticket, prefer a narrow sensible default and verify it rather than interrupting the owner.
+The same rule applies to gameplay QA: do not use the owner as a routine test runner. Agents should exhaust GUT, Godot AI, logs, screenshots, runtime state, and other already-approved tools first. Ask for manual playtesting only after a substantial coherent gameplay chunk has accumulated, so the owner tests the experience rather than individual implementation steps.
