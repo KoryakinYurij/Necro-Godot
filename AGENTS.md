@@ -24,7 +24,7 @@ The VPS may be used for documentation, GitHub coordination, review, or lightweig
 
 For Godot-specific skills, tests, MCP, pinned versions, and authority rules, read `docs/agents/godot-toolchain.md` before touching Godot project/tooling files.
 
-For black-box validation of an exported Windows `.exe`—launch, screenshots, held gameplay input, restart input, recording, focus/lock aborts, or release evidence—read `.agents/skills/windows-export-playtest/SKILL.md` before choosing an automation path.
+Gameplay QA routing: routine live-editor checks → `.agents/skills/godot-gameplay-qa/SKILL.md`; exported Windows `.exe` black-box checks → `.agents/skills/windows-export-playtest/SKILL.md`.
 
 ## Matt engineering skills
 
