@@ -18,3 +18,12 @@ recordings/
 .scratch/
 .freebuff/
 .mcp.json
+
+# Blender prototype review evidence: selectively track Blender work inside local scratch.
+!prototypes/blender-test/.scratch/
+prototypes/blender-test/.scratch/*
+!prototypes/blender-test/.scratch/blender/
+!prototypes/blender-test/.scratch/blender/**
+!prototypes/blender-test/.scratch/preview/
+!prototypes/blender-test/.scratch/preview/**
+
