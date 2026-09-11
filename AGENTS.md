@@ -24,6 +24,8 @@ The VPS may be used for documentation, GitHub coordination, review, or lightweig
 
 For Godot-specific skills, tests, MCP, pinned versions, and authority rules, read `docs/agents/godot-toolchain.md` before touching Godot project/tooling files.
 
+For Blender character/asset work or Blender→Godot asset transfer, read `prototypes/blender-test/README.md` first. It routes to the reusable workflow, production lessons, and asset-specific handoffs; perform Blender GUI work on the canonical Windows checkout.
+
 For black-box validation of an exported Windows `.exe`—launch, screenshots, held gameplay input, restart input, recording, focus/lock aborts, or release evidence—read `.agents/skills/windows-export-playtest/SKILL.md` before choosing an automation path.
 
 ## Matt engineering skills
